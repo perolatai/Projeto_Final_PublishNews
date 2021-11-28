@@ -36,6 +36,7 @@ class ExtracaoPublishNews(IniciarDriver):
     
     #aqui não temos o construtor pois estamos inicializando o driver na classe IniciarDriver
     def seleciona_anual(self):
+        sleep(2)
         #método para selecionar a aba de ano no site
         self.driver.find_element(by='xpath', value='//*[@id="pn-orelha-anual"]').click()
         
@@ -136,8 +137,13 @@ class ExtracaoPublishNews(IniciarDriver):
                       columns=['posicao', 'titulo', 'autor', 'editora', 'categoria', 'isbn', 'numero de paginas', 'volumes vendidos'])
 
         return self.dataframe
-
+    
+    #salva o dataframe em arquivo excel
     def salvar_dataframe(self, dataframe, nome_arquivo):
         self.dataframe.to_excel(nome_arquivo+'.xlsx')
+    
+    #fecha a janela após concluir a extração
+    def fecha_browser(self):
+        self.driver.close()
         
         
